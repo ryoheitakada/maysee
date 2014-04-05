@@ -1,0 +1,7 @@
+= nav_bar :fixed => :top, :brand => "maysee", inverse: true do
+  = menu_group do
+    = menu_item "ホーム", "/"
+    - if current_user
+      = menu_item "ログアウト", "/users/sign_out", method: :delete
+    - else
+      = menu_item "ログイン", "/users/sign_in"

@@ -1,0 +1,20 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザ
+
+    attributes:
+      user:
+        email: メールアドレス
+        password: パスワード
+        encrypted_password: パスワード
+        password_confirmation: パスワードの確認
+
+      business_card: 
+        last_name: 姓
+        first_name: 名
+        email: メールアドレス
+        place: 場所
+        tag: タグ
+        meet_day: 登録日
+        remarks: 備考

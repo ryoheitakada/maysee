@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong First nane:
+  = @business_card.first_nane
+p
+  strong Last name:
+  = @business_card.last_name
+p
+  strong Place:
+  = @business_card.place
+p
+  strong Tag:
+  = @business_card.tag
+p
+  strong Meet day:
+  = @business_card.meet_day
+p
+  strong Remarks:
+  = @business_card.remarks
+
+= link_to 'Edit', edit_business_card_path(@business_card)
+'|
+= link_to 'Back', business_cards_path

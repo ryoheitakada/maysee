@@ -1,0 +1,31 @@
+h1 Listing business_cards
+
+table
+  thead
+    tr
+      th First nane
+      th Last name
+      th Place
+      th Tag
+      th Meet day
+      th Remarks
+      th
+      th
+      th
+
+  tbody
+    - @business_cards.each do |business_card|
+      tr
+        td = business_card.first_nane
+        td = business_card.last_name
+        td = business_card.place
+        td = business_card.tag
+        td = business_card.meet_day
+        td = business_card.remarks
+        td = link_to 'Show', user_business_card_path(current_user.id, business_card)
+        td = link_to 'Edit', edit_user_business_card_path(current_user.id, business_card)
+        td = link_to 'Destroy', user_business_card_path(current_user.id, business_card), data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Business card', new_user_business_card_path(current_user.id)

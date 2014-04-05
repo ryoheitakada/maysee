@@ -1,0 +1,9 @@
+doctype html
+html lang="ja"
+  head
+    = render "layouts/header"
+  body
+    = render "layouts/navbar"
+    = render "shared/notice"
+    div.container
+      = yield

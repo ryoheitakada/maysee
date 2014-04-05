@@ -1,0 +1,15 @@
+.row-fluid#top_page
+  .well.clearfix
+    .span8
+      p 名刺を管理するシンプルなアプリ、<br class="visible-phone">maysee
+    .span4.well
+      p.center 登録して早速利用開始！
+      = form_for @user, url: {controller: "registrations", action: "create"} do |f|
+        = f.label :email
+        = f.email_field :email
+        = f.label :password
+        = f.password_field :password
+        = f.label :password_confirmation
+        = f.password_field :password_confirmation
+        br
+        = f.submit "登録", class: "btn btn-success"

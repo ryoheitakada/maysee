@@ -1,4 +1,17 @@
 Maysee::Application.routes.draw do
+  devise_for :users, controllers: {
+    sessions:      "sessions",
+    registrations: "registrations",
+    passwords: "passwords"
+  }
+  resources :users, only: [:show] {
+    resources :business_cards
+  }
+  constraints -> req { req.session[:"warden.user.user.key"] } do
+    root to: "business_cards#index"
+  end
+  # Not logged in
+  root to: 'welcome#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

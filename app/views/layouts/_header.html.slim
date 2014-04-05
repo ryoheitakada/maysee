@@ -1,0 +1,20 @@
+meta charset="utf-8" /
+meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible" /
+meta content="width=device-width, initial-scale=1.0" name="viewport" /
+title= content_for?(:title) ? yield(:title) : "maysee"
+meta content=(content_for?(:description) ? yield(:description) : "名刺を管理するシンプルなサイトです") name="description" /
+meta content=(content_for?(:keywords) ? yield(:keywords) : "名刺管理 メール配信") name="keywords" /
+meta content=(content_for?(:og_title) ? yield(:og_title) : "maysee") property="og:title" /
+meta content=(content_for?(:og_description) ? yield(:og_description) : "名刺を管理するシンプルなサイトです") property="og:description" /
+meta content="https://senseiportal.com/assets/rails.png" property="og:image" /
+meta content=("maysee") property="og:site_name" /
+meta content="website" property="og:type" /
+meta content=request.url.split('?').first property="og:url" /
+meta content="width=device-width, initial-scale=1, maximum-scale=2" name="viewport" /
+- if request.smart_phone?
+  meta content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" /
+link href=request.url.split('?').first rel="canonical" /
+= stylesheet_link_tag    "application", media: "all"
+= csrf_meta_tags
+= javascript_include_tag "application"
+/![if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><script src="/assets/ie8_responsive/respond.min.js"></script><![endif]

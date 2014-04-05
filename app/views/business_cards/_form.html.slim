@@ -1,0 +1,27 @@
+= form_for @business_card do |f|
+  - if @business_card.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@business_card.errors.count, "error")} prohibited this business_card from being saved:"
+      ul
+        - @business_card.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :first_nane
+    = f.text_field :first_nane
+  .field
+    = f.label :last_name
+    = f.text_field :last_name
+  .field
+    = f.label :place
+    = f.text_field :place
+  .field
+    = f.label :tag
+    = f.text_field :tag
+  .field
+    = f.label :meet_day
+    = f.datetime_select :meet_day
+  .field
+    = f.label :remarks
+    = f.text_area :remarks
+  .actions = f.submit 'Save'
