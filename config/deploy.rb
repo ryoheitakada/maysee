@@ -4,7 +4,7 @@ require "bundler/capistrano" # bundleしてくれる
 require 'capistrano-rbenv'
 
 set :application, 'maysee'
-set :rbenv_ruby_version, '2.0.0p451'
+set :rbenv_ruby_version, '2.0.0-p451'
 set :bundle_gemfile,  "Gemfile"
 set :bundle_flags,    "--quiet"
 set :bundle_without,  [:development, :test]
@@ -27,7 +27,8 @@ set :application, "maysee"
 set :repository,  "https://github.com/ryoheitakada/maysee.git"
 set :scm, :git
 set :user, "senseinote"
-set :use_sudo, false
+set :use_sudo, true
+default_run_options[:pty] = true
 set :ssh_options, port: "22"
 set :keep_releases, 3
 set :deploy_via, :remote_cache
