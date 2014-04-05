@@ -1,25 +1,54 @@
-set :application, "set your application name here"
-set :repository,  "set your repository location here"
+require 'capistrano/ext/multistage'
+require 'database_yml/capistrano'
+require "bundler/capistrano" # bundleしてくれる
+require 'capistrano-rbenv'
 
-# set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+set :application, 'maysee'
+set :rbenv_ruby_version, '2.0.0p451'
+set :bundle_gemfile,  "Gemfile"
+set :bundle_flags,    "--quiet"
+set :bundle_without,  [:development, :test]
+set :bundle_cmd,      "bundle" # e.g. "/opt/ruby/bin/bundle"
+set :bundle_roles,    {except: {no_release: true}} # e.g. [:app, :batch]
 
-role :web, "your web-server here"                          # Your HTTP server, Apache/etc
-role :app, "your app-server here"                          # This may be the same as your `Web` server
-role :db,  "your primary db-server here", :primary => true # This is where Rails migrations will run
-role :db,  "your slave db-server here"
+set :stages, %w(production)
 
-# if you want to clean up old releases on each deploy uncomment this:
-# after "deploy:restart", "deploy:cleanup"
+namespace :rbenv do
+  task :setup_shellenv do
+    set :default_environment, {
+      'RBENV_ROOT' => "#{rbenv_path}",
+      'PATH' => "#{rbenv_path}/shims:#{rbenv_path}/bin:$PATH",
+    }
+  end
+  after 'multistage:ensure', 'rbenv:setup_shellenv'
+end
 
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
+set :application, "maysee"
+set :repository,  "https://github.com/ryoheitakada/maysee.git"
+set :scm, :git
+set :user, "senseinote"
+set :use_sudo, true
+default_run_options[:pty] = true
+set :ssh_options, port: "22"
+set :keep_releases, 3
+set :deploy_via, :remote_cache
 
-# If you are using Passenger mod_rails uncomment this:
-# namespace :deploy do
-#   task :start do ; end
-#   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-#   end
-# end
+before "deploy:restart", "deploy:symlink_shared"
+after "deploy:update", "deploy:link_tmp"
+after "deploy:update", "deploy:cleanup"
+
+namespace :deploy do
+  task :start do ; end
+  task :stop do ; end
+  task :restart, roles: :app, except: { no_release: true } do
+    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+  end
+  task :link_tmp do
+    run <<-CMD
+      rm -rf #{release_path}/tmp && ln -nfs #{shared_path}/tmp #{release_path}/tmp
+    CMD
+  end
+  task :symlink_shared do
+    run "ln -s #{shared_path}/config/initializers/* #{release_path}/config/initializers/"
+  end
+end
