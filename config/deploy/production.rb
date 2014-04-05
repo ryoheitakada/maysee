@@ -3,6 +3,7 @@
 
 # チェックアウトするブランチ名を指定する
 set :branch, 'master'
+
 set :rails_env, 'production'
 
 # アプリケーションデプロイ先のベースディレクトリの絶対パスを記述する
