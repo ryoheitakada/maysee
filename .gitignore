@@ -11,6 +11,8 @@ public/assets
 public/system
 /images
 /config/database.yml
+/config/deploy.rb
+/config/deploy/*
 /config/initializers/google.rb
 /vendor/bundle/
 Gemfile.lock

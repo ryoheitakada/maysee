@@ -27,8 +27,7 @@ set :application, "maysee"
 set :repository,  "https://github.com/ryoheitakada/maysee.git"
 set :scm, :git
 set :user, "senseinote"
-set :use_sudo, true
-default_run_options[:pty] = true
+set :use_sudo, false
 set :ssh_options, port: "22"
 set :keep_releases, 3
 set :deploy_via, :remote_cache
