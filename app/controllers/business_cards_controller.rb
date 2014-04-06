@@ -3,7 +3,7 @@ class BusinessCardsController < ApplicationController
   before_filter :block_other_user
   def index
     @business_card = BusinessCard.new
-    @business_cards = BusinessCard.all
+    @business_cards = current_user.business_cards
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class BusinessCardsController < ApplicationController
   # GET /business_cards/1
   # GET /business_cards/1.json
   def show
-    @business_card = BusinessCard.find(params[:id])
+    @business_card = current_user.business_cards.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -32,13 +32,13 @@ class BusinessCardsController < ApplicationController
 
   # GET /business_cards/1/edit
   def edit
-    @business_card = BusinessCard.find(params[:id])
+    @business_card = current_user.business_cards.find(params[:id])
   end
 
   # POST /business_cards
   # POST /business_cards.json
   def create
-    @business_card = BusinessCard.new(params[:business_card])
+    @business_card = current_user.business_cards.build(params[:business_card])
 
     respond_to do |format|
       if @business_card.save
@@ -54,7 +54,7 @@ class BusinessCardsController < ApplicationController
   # PUT /business_cards/1
   # PUT /business_cards/1.json
   def update
-    @business_card = BusinessCard.find(params[:id])
+    @business_card = current_user.business_cards.find(params[:id])
 
     respond_to do |format|
       date = params[:business_card][:meet_day] 
@@ -70,7 +70,7 @@ class BusinessCardsController < ApplicationController
   # DELETE /business_cards/1
   # DELETE /business_cards/1.json
   def destroy
-    @business_card = BusinessCard.find(params[:id])
+    @business_card = current_user.business_cards.find(params[:id])
     @business_card.destroy
 
     respond_to do |format|
@@ -86,7 +86,7 @@ class BusinessCardsController < ApplicationController
 
   def search
     @business_card = BusinessCard.new
-    @business_cards = BusinessCard.search_by_params(params)
+    @business_cards = current_user.business_cards.search_by_params(params)
     logger.debug(@business_cards.inspect)
     render "index"
   end
