@@ -1,3 +1,13 @@
-.alert.alert-info
-  = send_email_list
-  p[style="margin: 0"] にメールを送信します。
+h2 メール送信
+- if send_email_list[0].present?
+  .alert.alert-info
+    = raw send_email_list[0].join("<br>")
+    p[style="margin: 0"] にメールを送信します。
+
+= form_for [current_user, @send_mail] do |f|
+  = f.label :title
+  = f.text_field :title, style: "width:98%", placeholder: "\#\{姓\}様、いつもお世話になっております"
+  = f.label :body
+  = f.text_area :body, style: "height:300px;width:98%", placeholder: "\#\{場所\}では大変お世話になりました。(\#\{ユーザーの属性\}が使えます)"
+  br
+  = f.submit "メール送信", class: "btn btn-success", confirm: "送信してもよろしいですか？"

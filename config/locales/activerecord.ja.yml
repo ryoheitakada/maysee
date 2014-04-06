@@ -3,6 +3,7 @@ ja:
     models:
       user: ユーザ
       business_card: 名刺データ
+      send_mail: メール
 
     attributes:
       user:
@@ -18,5 +19,10 @@ ja:
         email: メールアドレス
         place: 場所
         tag: タグ
-        meet_day: 登録日
+        meet_day: 会った日
         remarks: 備考
+
+      send_mail: 
+        emails: 送信先
+        title: タイトル
+        body: 本文

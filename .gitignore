@@ -16,7 +16,7 @@ public/system
 /config/database.yml
 /config/deploy.rb
 /config/deploy/*
-/config/initializers/google.rb
+/config/initializers/gmail.rb
 /vendor/bundle/
 Gemfile.lock
 *.swp
