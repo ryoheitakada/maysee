@@ -3,6 +3,9 @@ h2 メール送信
   .alert.alert-info
     = raw send_email_list[0].join("<br>")
     p[style="margin: 0"] にメールを送信します。
+- else
+  .alert.alert-error
+    p[style="margin: 0"] 送信先が選択されていません。
 
 = form_for [current_user, @send_mail] do |f|
   = f.label :title
