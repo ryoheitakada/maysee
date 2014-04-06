@@ -7,6 +7,7 @@ Maysee::Application.routes.draw do
     resources :business_cards do
       collection do
         post "mail_list"
+        post "search"
       end
     end 
     resources :send_mails

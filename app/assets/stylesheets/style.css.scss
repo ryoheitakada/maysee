@@ -16,6 +16,11 @@
   font-weight: bold;
 }
 
+//common
+input[type="text"] {
+  margin-right:5px;
+}
+
 // layout
 body {
   margin-top: 60px;
@@ -56,3 +61,5 @@ body {
     }
   }
 }
+
+// index-page

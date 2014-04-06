@@ -1,8 +1,8 @@
 tr
   td = check_box_tag 'business_cards[][id]', business_card.id, true
-  td = business_card.try("last_name") || "-"
-  td = business_card.try("first_name")|| "-"
-  td = business_card.try("place")|| "-"
+  td = business_card.try("last_name").present? || "-"
+  td = business_card.try("first_name").present? || "-"
+  td = business_card.try("place").present? || "-"
   td = business_card.meet_day.try("strftime", "%Y年%m月%d日") || "-"
   td = business_card.tag_name
   td = link_to '詳細', user_business_card_path(current_user.id, business_card)

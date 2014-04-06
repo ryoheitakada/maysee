@@ -1,6 +1,6 @@
 class BusinessCardsController < ApplicationController
-  # GET /business_cards
-  # GET /business_cards.json
+  before_filter :authenticate_user!
+  before_filter :block_other_user
   def index
     @business_card = BusinessCard.new
     @business_cards = BusinessCard.all
@@ -82,5 +82,20 @@ class BusinessCardsController < ApplicationController
   def mail_list
     session[:user_ids] = params[:business_cards]
     redirect_to new_user_send_mail_path(current_user)
+  end
+
+  def search
+    @business_card = BusinessCard.new
+    @business_cards = BusinessCard.search_by_params(params)
+    logger.debug(@business_cards.inspect)
+    render "index"
+  end
+
+  def block_other_user
+    if params[:user_id] && (params[:user_id].to_i != current_user.id)
+      redirect_to user_business_cards_path(current_user.id), alert: "不正なアクセスです。"
+    else
+      return true
+    end
   end
 end

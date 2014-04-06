@@ -17,11 +17,21 @@ table.table.table-striped
         = render "business_card", business_card: business_card 
 
       br
-      = submit_tag "選択したユーザにメール送信", class: "btn btn-notice"
+      p.bold[style="font-size:16px"] メール送信
+      = submit_tag "選択したユーザにメール送信", class: "btn btn-success"
+      br
+      br
+    p.bold[style="font-size:16px"] 検索
+    = form_tag controller: "business_cards", action: "search", user_id: current_user.id do
+      = text_field_tag "business_card[word]", "", placeholder: "検索(姓/名/メールアドレス/場所/タグ)"
+      = text_field_tag "business_card[from]", "", placeholder: "検索(◯月◯日〜)", class: "datepicker"
+      = text_field_tag "business_card[to]", "", placeholder: "検索(〜◯月◯日)", class: "datepicker"
+      br.visible-phone
+      = submit_tag "検索", class: "btn btn-info", style: "margin-bottom: 10px"
       br
       br
 hr[style="margin-bottom: 20px"]
-p.bold[style="font-size:16px"] 新規名刺データ登録
+p.bold[style="font-size:16px"] 新規名刺データ登録(Ajax)
 = render "form", remote: true
 
 javascript:
@@ -33,4 +43,5 @@ javascript:
         $("input[type='checkbox']").prop("checked", false)
       }
     })
+    $(".datepicker").datepicker({"format": "yyyy/mm/dd", "minDate":"today", "autoclose": true, "language":"ja"});
   })
