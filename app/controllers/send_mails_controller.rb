@@ -1,0 +1,3 @@
+class SendMailsController < ApplicationController
+  
+end

@@ -1,31 +1,36 @@
-h1 Listing business_cards
-
-table
+table.table.table-striped
   thead
     tr
-      th First nane
-      th Last name
-      th Place
-      th Tag
-      th Meet day
-      th Remarks
-      th
+      th = check_box_tag 'check_all', '', true
+      th 姓
+      th 名
+      th 場所
+      th 面会日
+      th タグ
+      th 
       th
       th
 
   tbody
-    - @business_cards.each do |business_card|
-      tr
-        td = business_card.first_nane
-        td = business_card.last_name
-        td = business_card.place
-        td = business_card.tag
-        td = business_card.meet_day
-        td = business_card.remarks
-        td = link_to 'Show', user_business_card_path(current_user.id, business_card)
-        td = link_to 'Edit', edit_user_business_card_path(current_user.id, business_card)
-        td = link_to 'Destroy', user_business_card_path(current_user.id, business_card), data: {:confirm => 'Are you sure?'}, :method => :delete
+    = form_tag controller: "business_cards", action: "mail_list", user_id: current_user.id do
+      - @business_cards.each do |business_card|
+        = render "business_card", business_card: business_card 
 
-br
+      br
+      = submit_tag "選択したユーザにメール送信", class: "btn btn-notice"
+      br
+      br
+hr[style="margin-bottom: 20px"]
+p.bold[style="font-size:16px"] 新規名刺データ登録
+= render "form", remote: true
 
-= link_to 'New Business card', new_user_business_card_path(current_user.id)
+javascript:
+  $(function(){
+    $("input[name='check_all']").on("click", function(){
+      if($(this).prop("checked")) {
+        $("input[type='checkbox']").prop("checked", true)
+      } else {
+        $("input[type='checkbox']").prop("checked", false)
+      }
+    })
+  })

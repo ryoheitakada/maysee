@@ -2,11 +2,13 @@ ja:
   activerecord:
     models:
       user: ユーザ
+      business_card: 名刺データ
 
     attributes:
       user:
         email: メールアドレス
         password: パスワード
+        remember_me: ログインしたままにする
         encrypted_password: パスワード
         password_confirmation: パスワードの確認
 

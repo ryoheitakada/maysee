@@ -1,8 +1,10 @@
-h1 Editing business_card
+h1 編集
 
-== render 'form'
+= render 'form'
 
-= link_to 'Show', @business_card
+= link_to '詳細', user_business_card_path(current_user.id, @business_card.id)
 '|
-= link_to 'Back', business_cards_path
-
+= link_to '戻る', user_business_cards_path
+br
+br
+br

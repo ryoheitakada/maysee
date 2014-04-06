@@ -1,0 +1,3 @@
+class SendMail < ActiveRecord::Base
+  # attr_accessible :title, :body
+end

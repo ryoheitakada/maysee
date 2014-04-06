@@ -2,11 +2,11 @@ class BusinessCardsController < ApplicationController
   # GET /business_cards
   # GET /business_cards.json
   def index
+    @business_card = BusinessCard.new
     @business_cards = BusinessCard.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @business_cards }
     end
   end
 
@@ -17,7 +17,6 @@ class BusinessCardsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @business_card }
     end
   end
 
@@ -28,7 +27,6 @@ class BusinessCardsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @business_card }
     end
   end
 
@@ -44,11 +42,11 @@ class BusinessCardsController < ApplicationController
 
     respond_to do |format|
       if @business_card.save
-        format.html { redirect_to @business_card, notice: 'Business card was successfully created.' }
-        format.json { render json: @business_card, status: :created, location: @business_card }
+        format.html { redirect_to user_business_card_path(current_user.id, @business_card.id), notice: '名刺データを登録しました' }
+        format.js {}
       else
         format.html { render action: "new" }
-        format.json { render json: @business_card.errors, status: :unprocessable_entity }
+        format.js {render js: "alert('名刺データの登録に失敗しました。')"}
       end
     end
   end
@@ -59,12 +57,12 @@ class BusinessCardsController < ApplicationController
     @business_card = BusinessCard.find(params[:id])
 
     respond_to do |format|
+      date = params[:business_card][:meet_day] 
+      params[:business_card][:meet_day] = date ? Date.parse(date) : nil
       if @business_card.update_attributes(params[:business_card])
-        format.html { redirect_to @business_card, notice: 'Business card was successfully updated.' }
-        format.json { head :no_content }
+        format.html { redirect_to user_business_card_path(current_user.id, params[:id]), notice: 'アップデートしました。' }
       else
         format.html { render action: "edit" }
-        format.json { render json: @business_card.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -76,8 +74,13 @@ class BusinessCardsController < ApplicationController
     @business_card.destroy
 
     respond_to do |format|
-      format.html { redirect_to business_cards_url }
+      format.html { redirect_to user_business_cards_url(current_user.id) }
       format.json { head :no_content }
     end
+  end
+
+  def mail_list
+    session[:user_ids] = params[:business_cards]
+    redirect_to new_user_send_mail_path(current_user)
   end
 end

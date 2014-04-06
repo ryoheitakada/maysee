@@ -11,10 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140405194617) do
+ActiveRecord::Schema.define(:version => 20140405233917) do
 
   create_table "business_cards", :force => true do |t|
-    t.string   "first_nane"
+    t.string   "first_name"
     t.string   "last_name"
     t.string   "place"
     t.string   "tag"
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(:version => 20140405194617) do
   end
 
   add_index "business_cards", ["id"], :name => "index_business_cards_on_id"
+
+  create_table "send_mails", :force => true do |t|
+    t.text     "emails"
+    t.string   "title"
+    t.text     "body"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

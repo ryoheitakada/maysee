@@ -2,11 +2,15 @@ Maysee::Application.routes.draw do
   devise_for :users, controllers: {
     sessions:      "sessions",
     registrations: "registrations",
-    passwords: "passwords"
   }
-  resources :users, only: [:show] {
-    resources :business_cards
-  }
+  resources :users, only: [:show] do
+    resources :business_cards do
+      collection do
+        post "mail_list"
+      end
+    end 
+    resources :send_mails
+  end
   constraints -> req { req.session[:"warden.user.user.key"] } do
     root to: "business_cards#index"
   end

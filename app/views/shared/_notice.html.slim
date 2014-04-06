@@ -1,6 +1,6 @@
-- if notice
-  p.notice
-    = notice
-- if alert
-  p.alert
-    = alert
+- if notice || flash[:notice]
+  p.alert.alert-success
+    = notice || flash[:notice]
+- if alert|| flash[:alert]
+  p.alert.alert-error
+    = alert || flash[:alert]

@@ -1,24 +1,25 @@
-p#notice = notice
-
 p
-  strong First nane:
-  = @business_card.first_nane
+  strong 姓:
+  = @business_card.first_name
 p
-  strong Last name:
+  strong 名:
   = @business_card.last_name
 p
-  strong Place:
+  strong メールアドレス:
+  = @business_card.email
+p
+  strong 場所:
   = @business_card.place
 p
-  strong Tag:
-  = @business_card.tag
+  strong 面会日:
+  = @business_card.meet_day.try("strftime", "%Y年%m月%d日") || "-"
 p
-  strong Meet day:
-  = @business_card.meet_day
+  strong タグ:
+  = @business_card.tag_name
 p
-  strong Remarks:
+  strong 備考:
   = @business_card.remarks
 
-= link_to 'Edit', edit_business_card_path(@business_card)
+= link_to '編集', edit_user_business_card_path(current_user.id, @business_card.id)
 '|
-= link_to 'Back', business_cards_path
+= link_to '戻る', user_business_cards_path
