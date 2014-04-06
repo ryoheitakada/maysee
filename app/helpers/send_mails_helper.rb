@@ -1,6 +1,6 @@
 module SendMailsHelper
   def send_email_list
-    if session[:user_ids]
+    if session[:user_ids].present?
       emails = []
       receivers = []
       session[:user_ids].each do |id_hash|
@@ -11,6 +11,8 @@ module SendMailsHelper
         end
       end
       return [receivers.compact, emails.compact]
+    else
+      return nil
     end
   end
 end

@@ -1,5 +1,5 @@
 h2 メール送信
-- if send_email_list[0].present?
+- if send_email_list.present?
   .alert.alert-info
     = raw send_email_list[0].join("<br>")
     p[style="margin: 0"] にメールを送信します。

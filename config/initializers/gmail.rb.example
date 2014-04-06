@@ -7,7 +7,7 @@ Maysee::Application.configure do
     :port => '587',
     :domain => 'smtp.gmail.com',
     :authentication => 'plain',
-    :user_name => 'nikusuki727@gmail.com',
-    :password => 'nikusuki'
+    :user_name => 'アドレス',
+    :password => 'パスワード'
   }
 end
