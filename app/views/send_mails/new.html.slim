@@ -5,7 +5,7 @@ h2 メール送信
     p[style="margin: 0"] にメールを送信します。
 - else
   .alert.alert-error
-    p[style="margin: 0"] 送信先が選択されていません。
+    p[style="margin: 0"] 送信先が選択されていません。前のページに戻ってページを更新してからもう一度お試しください。
 
 = form_for [current_user, @send_mail] do |f|
   = f.label :title
